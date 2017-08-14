@@ -2,6 +2,9 @@
 Public repository for multitasking analyses
 
 fMRI pipeline:
+
+*Preprocess*
+
 $ generate.nii  <run name> <dcm index> # go from dicoms to nii
 do for each run and anatomy, unzips and converts from dicom to nii
 makes a folder with name of first parameter.nii
@@ -17,3 +20,11 @@ $ reconSurf.sh <subj id> # FreeSurfer segmentations, atlases, surface volumes (s
 \@SUMA_Make_Spec_FS -sid <subj id> 
 
 $ makeGreyMatterMask_pni.sh <subj id> # makes gray matter mask, outputs .txt
+
+*Align*
+
+$ Aligment.sh <subject> <session> <subject space session>
+
+*Analyze*
+
+We'll do a bunch of different analyses, right now I just have MVPA up here.
