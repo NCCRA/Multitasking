@@ -1,7 +1,6 @@
 # Multitasking
 Public repository for multitasking analyses
 
-fMRI pipeline:
 
  # *Preprocess*
 
