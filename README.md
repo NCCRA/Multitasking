@@ -24,11 +24,11 @@ $ realignToDay1.sh <subject> <session #> # realign each session to that subject'
 
 # *Analyze*
 
-$ MVPA
+_MVPA
 
 Backburner for now, hoping to use scikitlearn to train some classifiers to recognize which colors/words people are thinking about on each trial.
 
-$ Brainiak searchlight
+_Brainiak searchlight
 
 $ testSearchlight.py # looks at similarity in a toy dataset composed of random numbers
 
