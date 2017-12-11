@@ -20,16 +20,19 @@ Requires FreeSurfer, can't run on rondo or spock right now, doing this locally r
 
 $ makeGreyMatter.sh <subj id> # makes gray matter mask, outputs .txt
 
-$ realignToDay1.sh <subject> <session> <session #>
+$ realignToDay1.sh <subject> <session #> # realign each session to that subject's first session. makes analyses easier later :)
 
 # *Analyze*
 
 $ MVPA
+
 Backburner for now, hoping to use scikitlearn to train some classifiers to recognize which colors/words people are thinking about on each trial.
 
 $ Brainiak searchlight
-testSearchlight.py looks at similarity in a toy dataset composed of random numbers
-run_test_searchlight.py submits slurm job to spock's scheduler to run the testSearchlight.py
+
+$ testSearchlight.py # looks at similarity in a toy dataset composed of random numbers
+
+$ run_test_searchlight.py #submits slurm job to spock's scheduler to run the testSearchlight.py
 (currently running into memory issues on spock)
 
 https://pythonhosted.org/brainiak/brainiak.searchlight.html
