@@ -11,7 +11,7 @@
 # Here, our function just returns the correlation between some of the conditions.
 # Finally, we save our correlations. Since the toy brain is so small, I also print our results :)
 
-# Required to run: Brainiak!
+# Required to run: Brainiak! You can open an ipython terminal and run this if you have Brainiak installed.
 # Not required to run: any of your own data :)
 
 import numpy as np
