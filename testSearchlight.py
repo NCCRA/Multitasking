@@ -1,4 +1,4 @@
-# Authors: Abigail Novick and Jamal Williams
+# Authors: Abigail Novick Hoskin and Jamal Williams
 # Thanks to Cameron Ellis and the Brainiak team for all their help! 
 
 # This script computes the pattern similarity between subjects at every voxel in the brain via Brainiak's searchlight functionality.
@@ -9,7 +9,7 @@
 # We average the voxel activation patterns within each condition, then stack them together to feed to the searchlight.
 # The searchlight takes our stacked data, a mask for the data, the radius of your searchlight, and the function you want your searchlight to apply to each voxel.
 # Here, our function just returns the correlation between some of the conditions.
-# Finally, we save our correlations.
+# Finally, we save our correlations. Since the toy brain is so small, I also print our results :)
 
 # Required to run: Brainiak!
 # Not required to run: any of your own data :)
@@ -33,7 +33,8 @@ y = 4
 z = 4
 t = 16
 
-# note, only voxels within this toy brain that are considered "valid" since they sit inside the specified searchlight radius will get assigned a value.
+# note, only voxels within this toy brain that are considered "valid" since they sit inside the specified searchlight 
+# radius will get assigned a value.
 
 xdata = np.random.rand(x,y,z,t) # make our randomly generated data with t time points 
 
@@ -45,7 +46,8 @@ labelArray = np.array([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8])
 #zscore it because we'll  want to do this with the real data
 xdata = stats.zscore(xdata, axis = 1, ddof = 1)
 
-# we'll use global_outputs_all to keep track of results. if you have more than 1 subject, the 4th dimminsion can keep track of n subjects.
+# we'll use global_outputs_all to keep track of results. 
+# if you have more than 1 subject, the 4th dimminsion can keep track of n subjects.
 global_outputs_all = np.zeros((x,y,z,1))
 
 # hardcoded for supreme clarity
@@ -79,22 +81,19 @@ Stimulus4CRmean = np.mean(Stimulus4CR, axis = 3)
 stacked_data = np.stack([Stimulus1CPmean, Stimulus1CRmean,Stimulus2CPmean,Stimulus2CRmean, 
                      Stimulus3CPmean, Stimulus3CRmean, Stimulus4CPmean, Stimulus4CRmean], axis=-1)
 
-
 def corr_func(A,msk,myrad,bcast_var):
     print('searchlight start')
     
     A = np.array(A)
     A = A.reshape((-1,A.shape[-1]))
     print("A reshaped")
-  
+    #m make a correlation matrix
     corrAB = np.corrcoef(A.T,A.T)[8:,:8]
-    print("corrAB made")
-
     corr_1_same_color = corrAB[1, 0]
     corr_2_same_color = corrAB[2, 3]
     corr_3_same_color = corrAB[4, 5]
     corr_4_same_color = corrAB[6, 7]
-    z = np.mean([ corr_1_same_color, corr_2_same_color, corr_3_same_color, corr_4_same_color])
+    z = np.mean([corr_1_same_color, corr_2_same_color, corr_3_same_color, corr_4_same_color])
     return z    
 
 np.seterr(divide='ignore',invalid='ignore')
@@ -106,14 +105,7 @@ sl.broadcast(None)
 print('Running Searchlight...')
 global_outputs = sl.run_searchlight(corr_func)
 
-# if we had more than 1 subjects, we could keep track of everybody's data here. global_outputs_all[:,:,:,1] = global_outputs
-global_outputs_all = global_outputs        
-print('sum of not nans')
-print(global_outputs[0, 0, 0])
-
-# Plot and save searchlight results
 np.save("brainiak_searchlight_tutorial_output", global_outputs_all)
 
 print('Searchlight is Complete!')
 print( global_outputs_all)
-
